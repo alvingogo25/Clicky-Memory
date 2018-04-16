@@ -2,7 +2,7 @@
   "name": "clicky",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://alvingog25.github.io/Clicky-Memory",
+  "homepage": "https://alvingog25.github.io/Clicky-Memory/",
   "dependencies": {
     "autoprefixer": "7.1.6",
     "babel-core": "6.26.0",
