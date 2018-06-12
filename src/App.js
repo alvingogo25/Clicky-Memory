@@ -6,16 +6,15 @@ import characters from './characters.json';
 import ImgCard from './components/ImgCard';
 import Alert from './components/Alert';
 
-let score = 0;
-let topScore = 0;
-let gameMessage = "";
+
 
 class App extends React.Component {
   state = {
     characters,
-    score,
-    topScore,
-    gameMessage
+    score: 0,
+    topScore: 0,
+    gameMessage: "",
+    alertColor: ""
   }
 
   componentDidMount() {
@@ -56,24 +55,26 @@ class App extends React.Component {
       newState.characters.forEach(char => {
         char.clicked = false;
       });
-      newState.gameMessage = "danger";
+      newState.alertColor = "danger";
+      newState.gameMessage = "You Guessed That Already! Game Over! Click an image to play again";
     }
-    else if (score < 11) {
+    else if (newState.score < 11) {
       matched.clicked = true;
       newState.score++;
-      newState.gameMessage = "success";
-      newState.characters = (this.shuffleChar(newState.characters));
+      newState.alertColor = "success";
+      newState.gameMessage = "Good job keep guessing!";
     }
     else {
       matched.clicked = true;
       newState.topScore = 12;
       newState.score = 0;
-      newState.gameMessage = "";
+      newState.alertColor = "info";
+      newState.gameMessage = "You won! Click an image to play again";
       newState.characters.forEach(char => {
         char.clicked = false;
       });
-
     }
+    newState.characters = (this.shuffleChar(newState.characters));
     this.setState(newState)
 
 
@@ -86,8 +87,8 @@ class App extends React.Component {
         <header className="bg-light px-3">
           <h1>Pixar Memory</h1>
           <h6>Click a character to begin.</h6>
-          <h6>Don't click the same character more than once!</h6>
-          {this.state.gameMessage ? <Alert color={this.state.gameMessage} />: ""}
+          <h6>"Don't click the same character more than once!"</h6>
+          {this.state.alertColor ? <Alert color={this.state.alertColor} message={this.state.gameMessage} />: ""}
         </header>
         <Wrapper>
           {this.state.characters.map(char => (
